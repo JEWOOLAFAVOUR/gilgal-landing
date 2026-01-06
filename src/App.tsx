@@ -10,7 +10,6 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignupPage from "./pages/auth/SignupPage";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
-import DashboardHome from "./pages/dashboard/DashboardHome";
 import ProjectsPage from "./pages/dashboard/ProjectsPage";
 import CreateProjectPage from "./pages/dashboard/CreateProjectPage";
 import ProjectConfigPage from "./pages/dashboard/ProjectConfigPage";

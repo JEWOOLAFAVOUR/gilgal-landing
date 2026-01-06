@@ -1,15 +1,10 @@
 import { useState } from "react";
 import {
-  Menu,
-  X,
-  LayoutDashboard,
   FileStack,
   Settings,
   LogOut,
   Plus,
   Search,
-  Bell,
-  User,
   Moon,
   Sun,
 } from "lucide-react";
@@ -21,7 +16,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const { isDark, setIsDark } = useTheme();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen] = useState(true);
 
   const menuItems = [
     // { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },

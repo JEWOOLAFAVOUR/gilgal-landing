@@ -295,7 +295,9 @@ export default function DeploymentStatusPage() {
                 <div>
                   <p
                     className={`font-medium ${
-                      deploymentStatus === "success"
+                      deploymentStatus === "deploying"
+                        ? "text-blue-600 dark:text-blue-400"
+                        : deploymentStatus === "success"
                         ? "text-green-600 dark:text-green-400"
                         : deploymentStatus === "error"
                         ? "text-red-600 dark:text-red-400"

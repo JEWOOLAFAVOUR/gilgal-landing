@@ -1,5 +1,3 @@
-import { ArrowRight, Code, Zap, GitBranch, Calendar } from "lucide-react";
-
 export default function DashboardHome() {
   return (
     <div className="space-y-8">

@@ -60,7 +60,6 @@ export function Features() {
             const isLastRow =
               index >= features.length - (features.length % 3 || 3);
             const isLastCol = (index + 1) % 3 === 0;
-            const isRightCol = (index + 1) % 2 === 0 && index > 0;
 
             return (
               <div
