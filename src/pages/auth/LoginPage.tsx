@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Github, ArrowRight, Moon, Sun } from "lucide-react";
+import { Github, ArrowRight, Moon, Sun, AlertCircle } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
+import { authApi } from "../../services/api";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -10,6 +11,16 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Auto-clear error after 6 seconds
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError("");
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,14 +47,33 @@ export default function LoginPage() {
         return;
       }
 
-      // Mock authentication - set token in localStorage
-      localStorage.setItem("token", "mock_token_" + Date.now());
-      localStorage.setItem("userEmail", email);
+      // Call login API
+      console.log("Attempting login with email:", email);
+      const response = await authApi.login({ email, password });
+      console.log("Login response:", response);
 
-      // Redirect to dashboard
-      navigate("/dashboard");
-    } catch (err) {
-      setError("An error occurred. Please try again.");
+      if (response.success) {
+        console.log("Login successful, storing token and redirecting");
+        // Store token and user data
+        localStorage.setItem("token", response.data.accessToken);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+
+        // Redirect to dashboard
+        navigate("/dashboard");
+      } else {
+        const errorMsg = response.message || "Login failed";
+        console.error("Login failed:", errorMsg);
+        setError(errorMsg);
+      }
+    } catch (err: any) {
+      console.error("Login error:", err);
+      const errorMessage =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        err.message ||
+        "An error occurred. Please try again.";
+      console.error("Displaying error:", errorMessage);
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -111,10 +141,21 @@ export default function LoginPage() {
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="p-4 rounded-lg bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800">
-                <p className="text-sm text-red-600 dark:text-red-400">
-                  {error}
-                </p>
+              <div className="p-4 rounded-lg bg-red-50 dark:bg-red-950 border border-red-300 dark:border-red-700 animate-pulse">
+                <div className="flex items-start gap-3">
+                  <AlertCircle
+                    size={20}
+                    className="text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0"
+                  />
+                  <div>
+                    <p className="font-semibold text-red-700 dark:text-red-300 mb-1">
+                      Login Error
+                    </p>
+                    <p className="text-sm text-red-600 dark:text-red-400">
+                      {error}
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
 

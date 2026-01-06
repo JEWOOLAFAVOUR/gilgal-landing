@@ -12,6 +12,9 @@ import SignupPage from "./pages/auth/SignupPage";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import DashboardHome from "./pages/dashboard/DashboardHome";
 import ProjectsPage from "./pages/dashboard/ProjectsPage";
+import CreateProjectPage from "./pages/dashboard/CreateProjectPage";
+import ProjectConfigPage from "./pages/dashboard/ProjectConfigPage";
+import DeploymentStatusPage from "./pages/dashboard/DeploymentStatusPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
 import "./index.css";
 
@@ -47,6 +50,36 @@ function App() {
                 <ProtectedRoute>
                   <DashboardLayout>
                     <ProjectsPage />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/create-project"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <CreateProjectPage />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/project-config"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <ProjectConfigPage />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard/deployment-status"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <DeploymentStatusPage />
                   </DashboardLayout>
                 </ProtectedRoute>
               }

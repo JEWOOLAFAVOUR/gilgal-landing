@@ -1,8 +1,11 @@
-import { useState } from "react";
-import { Github, ArrowRight, Moon, Sun } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Github, ArrowRight, Moon, Sun, AlertCircle } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
+import { authApi } from "../../services/api";
 
 export default function SignupPage() {
+  const navigate = useNavigate();
   const { isDark, setIsDark } = useTheme();
   const [formData, setFormData] = useState({
     email: "",
@@ -13,6 +16,16 @@ export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+
+  // Auto-clear error after 6 seconds
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError("");
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,15 +41,53 @@ export default function SignupPage() {
     setError("");
 
     try {
-      // For now, just show a message - no API connection
-      console.log("Signup attempt with:", formData);
-      setSuccess(true);
-      setTimeout(() => {
-        setSuccess(false);
-        setFormData({ email: "", username: "", password: "", fullName: "" });
-      }, 2000);
-    } catch (err) {
-      setError("An error occurred. Please try again.");
+      // Validate inputs
+      if (
+        !formData.email ||
+        !formData.username ||
+        !formData.password ||
+        !formData.fullName
+      ) {
+        setError("Please fill in all fields");
+        setIsLoading(false);
+        return;
+      }
+
+      if (formData.password.length < 8) {
+        setError("Password must be at least 8 characters");
+        setIsLoading(false);
+        return;
+      }
+
+      // Call signup API
+      console.log("Attempting signup with:", formData);
+      const response = await authApi.register(formData);
+      console.log("Signup response:", response);
+
+      if (response.success) {
+        console.log("Signup successful, storing token and redirecting");
+        setSuccess(true);
+        // Store token and user data
+        localStorage.setItem("token", response.data.accessToken);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 1500);
+      } else {
+        const errorMsg = response.message || "Signup failed";
+        console.error("Signup failed:", errorMsg);
+        setError(errorMsg);
+      }
+    } catch (err: any) {
+      console.error("Signup error:", err);
+      const errorMessage =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        err.message ||
+        "An error occurred. Please try again.";
+      console.error("Displaying error:", errorMessage);
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -122,10 +173,21 @@ export default function SignupPage() {
           {/* Signup Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="p-4 rounded-lg bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800">
-                <p className="text-sm text-red-600 dark:text-red-400">
-                  {error}
-                </p>
+              <div className="p-4 rounded-lg bg-red-50 dark:bg-red-950 border border-red-300 dark:border-red-700 animate-pulse">
+                <div className="flex items-start gap-3">
+                  <AlertCircle
+                    size={20}
+                    className="text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0"
+                  />
+                  <div>
+                    <p className="font-semibold text-red-700 dark:text-red-300 mb-1">
+                      Signup Error
+                    </p>
+                    <p className="text-sm text-red-600 dark:text-red-400">
+                      {error}
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
 

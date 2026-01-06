@@ -24,7 +24,7 @@ export default function DashboardLayout({
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const menuItems = [
-    { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
+    // { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
     { icon: FileStack, label: "Projects", href: "/dashboard/projects" },
     { icon: Settings, label: "Settings", href: "/dashboard/settings" },
   ];
