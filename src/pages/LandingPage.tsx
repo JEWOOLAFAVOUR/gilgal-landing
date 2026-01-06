@@ -4,15 +4,10 @@ import { Features } from "../components/landing/Features";
 import { CTA } from "../components/landing/CTA";
 import { Footer } from "../components/landing/Footer";
 
-interface LandingPageProps {
-  isDark: boolean;
-  setIsDark: (isDark: boolean) => void;
-}
-
-export default function LandingPage({ isDark, setIsDark }: LandingPageProps) {
+export default function LandingPage() {
   return (
     <>
-      <Navbar isDark={isDark} setIsDark={setIsDark} />
+      <Navbar />
       <div className="pt-16">
         <Hero />
         <Features />

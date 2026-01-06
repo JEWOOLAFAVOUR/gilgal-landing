@@ -1,12 +1,9 @@
 import { Github, Menu, X, Moon, Sun } from "lucide-react";
 import { useState } from "react";
+import { useTheme } from "../../context/ThemeContext";
 
-interface NavbarProps {
-  isDark: boolean;
-  setIsDark: (isDark: boolean) => void;
-}
-
-export function Navbar({ isDark, setIsDark }: NavbarProps) {
+export function Navbar() {
+  const { isDark, setIsDark } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -69,7 +66,7 @@ export function Navbar({ isDark, setIsDark }: NavbarProps) {
 
             {/* Sign Up Button - Hidden on mobile */}
             <a
-              href="https://api.gilgal.tech/api/auth/github/login"
+              href="/auth/signup"
               className="hidden sm:flex items-center gap-2 px-4 py-2 text-base font-medium text-black dark:text-white border border-gray-300 dark:border-gray-700 rounded-md hover:bg-gray-50 dark:hover:bg-gray-950 transition-colors"
             >
               <span className="hidden md:inline">Sign Up</span>
@@ -77,7 +74,7 @@ export function Navbar({ isDark, setIsDark }: NavbarProps) {
 
             {/* Login Button - Hidden on mobile */}
             <a
-              href="https://api.gilgal.tech/api/auth/github/login"
+              href="/auth/login"
               className="hidden sm:flex items-center gap-2 px-4 py-2 text-base font-medium text-white bg-black dark:bg-white dark:text-black rounded-md hover:bg-gray-900 dark:hover:bg-gray-100 transition-colors"
             >
               <Github size={16} />
@@ -135,13 +132,13 @@ export function Navbar({ isDark, setIsDark }: NavbarProps) {
             </a>
             <div className="flex gap-3 mt-4">
               <a
-                href="https://api.gilgal.tech/api/auth/github/login"
+                href="/auth/signup"
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-black dark:text-white border border-gray-300 dark:border-gray-700 rounded-md hover:bg-gray-50 dark:hover:bg-gray-950 transition-colors"
               >
                 Sign Up
               </a>
               <a
-                href="https://api.gilgal.tech/api/auth/github/login"
+                href="/auth/login"
                 className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-black dark:bg-white dark:text-black rounded-md hover:bg-gray-900 dark:hover:bg-gray-100 transition-colors"
               >
                 <Github size={16} />
