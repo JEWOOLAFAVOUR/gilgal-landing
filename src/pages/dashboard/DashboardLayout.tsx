@@ -93,50 +93,57 @@ export default function DashboardLayout({
 
       {/* Main Content */}
       <main
-        className={`transition-all duration-300 ${
+        className={`min-h-screen flex flex-col transition-all duration-300 ${
           sidebarOpen ? "ml-64" : "ml-20"
         }`}
       >
         {/* Top Bar */}
-        <div className="h-16 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-6">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-colors"
-          >
-            {sidebarOpen ? <Menu size={24} /> : <Menu size={24} />}
-          </button>
+        <div className="h-16 bg-black border-b border-gray-800 flex items-center justify-between px-6 sticky top-0 z-30">
+          {/* Left Section - Title */}
+          <div className="flex items-center gap-2">
+            <FileStack size={20} className="text-white" />
+            <span className="text-white font-medium text-lg">Projects</span>
+          </div>
 
-          <div className="flex items-center gap-4">
+          {/* Right Section - Actions */}
+          <div className="flex items-center gap-6">
             {/* Search Bar */}
-            <div className="hidden md:flex items-center gap-2 bg-gray-100 dark:bg-gray-900 px-4 py-2 rounded-lg">
-              <Search size={18} className="text-gray-500 dark:text-gray-400" />
+            <div className="hidden md:flex items-center gap-2 bg-gray-900 px-4 py-2 rounded-lg border border-gray-800">
+              <Search size={18} className="text-gray-500" />
               <input
                 type="text"
-                placeholder="Search projects..."
-                className="bg-transparent outline-none text-sm text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                placeholder="Search"
+                className="bg-transparent outline-none text-sm text-white placeholder-gray-500 w-32"
               />
+              <span className="text-gray-600 text-xs ml-2">⌘ K</span>
             </div>
 
-            {/* Notifications */}
-            <button className="relative p-2 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-colors">
-              <Bell size={20} className="text-gray-700 dark:text-gray-300" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full"></span>
+            {/* New Button */}
+            <button className="flex items-center gap-2 px-3 py-2 text-white border border-dashed border-gray-600 rounded-lg hover:bg-gray-900 transition-colors text-sm font-medium cursor-pointer">
+              <Plus size={18} />
+              New
+            </button>
+
+            {/* Upgrade Button */}
+            <button className="flex items-center gap-2 px-3 py-2 text-white border border-dashed border-gray-600 rounded-lg hover:bg-gray-900 transition-colors text-sm font-medium cursor-pointer">
+              <span>⬆</span>
+              Upgrade
+            </button>
+
+            {/* Help Icon */}
+            <button className="p-2 text-gray-400 hover:text-white hover:bg-gray-900 rounded-lg transition-colors">
+              <span className="text-lg">?</span>
             </button>
 
             {/* User Profile */}
-            <button className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-colors">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
-                <User size={18} className="text-white" />
-              </div>
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 hidden md:inline">
-                Profile
-              </span>
+            <button className="flex items-center justify-center w-8 h-8 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg hover:opacity-80 transition-opacity">
+              <span className="text-white font-bold text-sm">J</span>
             </button>
           </div>
         </div>
 
         {/* Page Content */}
-        <div className="p-6">{children}</div>
+        <div className="flex-1 overflow-y-auto p-6">{children}</div>
       </main>
     </div>
   );

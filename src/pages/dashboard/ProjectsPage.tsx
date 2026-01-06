@@ -1,141 +1,205 @@
-import { Plus, Star, GitBranch, Users, Clock } from "lucide-react";
+import { CheckCircle2, Plus, Search, MoreHorizontal } from "lucide-react";
+import { useState, useMemo } from "react";
 
 export default function ProjectsPage() {
-  const projects = [
-    {
-      name: "glow_note",
-      desc: "AI-powered note-taking application",
-      stars: 342,
-      contributors: 8,
-      lastUpdate: "2 hours ago",
-      status: "Active",
-    },
-    {
-      name: "task-manager",
-      desc: "Collaborative project management tool",
-      stars: 218,
-      contributors: 5,
-      lastUpdate: "1 day ago",
-      status: "Active",
-    },
-    {
-      name: "analytics-dashboard",
-      desc: "Real-time data visualization platform",
-      stars: 156,
-      contributors: 3,
-      lastUpdate: "3 days ago",
-      status: "Building",
-    },
-    {
-      name: "api-gateway",
-      desc: "Unified API management and routing",
-      stars: 89,
-      contributors: 2,
-      lastUpdate: "1 week ago",
-      status: "Paused",
-    },
+  const [activeTab, setActiveTab] = useState("active");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const services = [
+    { name: "StudyPadi", status: "Deployed", runtime: "Node", region: "Oregon", updated: "1mo" },
+    { name: "atom-backend", status: "Deployed", runtime: "Node", region: "Oregon", updated: "5mo" },
+    { name: "Chapel", status: "Deployed", runtime: "Node", region: "Oregon", updated: "7mo" },
+    { name: "medxlearn", status: "Deployed", runtime: "Node", region: "Oregon", updated: "9mo" },
+    { name: "api-gateway", status: "Deployed", runtime: "Node", region: "Oregon", updated: "2mo" },
+    { name: "dashboard-ui", status: "Deployed", runtime: "React", region: "Oregon", updated: "3mo" },
+    { name: "db-service", status: "Deployed", runtime: "Python", region: "Oregon", updated: "4mo" },
+    { name: "auth-service", status: "Deployed", runtime: "Node", region: "Oregon", updated: "1w" },
+    { name: "cache-layer", status: "Deployed", runtime: "Node", region: "Oregon", updated: "2w" },
+    { name: "worker-queue", status: "Deployed", runtime: "Node", region: "Oregon", updated: "3w" },
+    { name: "notification-hub", status: "Deployed", runtime: "Node", region: "Oregon", updated: "1d" },
+    { name: "analytics-engine", status: "Deployed", runtime: "Python", region: "Oregon", updated: "5d" },
+    { name: "payment-processor", status: "Deployed", runtime: "Node", region: "Oregon", updated: "6d" },
   ];
 
+  // Filter services based on tab and search
+  const filteredServices = useMemo(() => {
+    let filtered = services;
+    
+    if (activeTab === "active") {
+      filtered = services.filter(s => s.status === "Deployed");
+    } else if (activeTab === "suspended") {
+      filtered = services.filter(s => s.status !== "Deployed");
+    }
+    
+    if (searchQuery) {
+      filtered = filtered.filter(s =>
+        s.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    
+    return filtered;
+  }, [activeTab, searchQuery]);
+
   return (
-    <div className="space-y-6">
-      {/* Header */}
+    <div className="space-y-6 w-full">
+      {/* Overview Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-black dark:text-white mb-2">
-            Projects
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Manage all your Gilgal projects and their deployments
-          </p>
-        </div>
-        <button className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors">
-          <Plus size={20} /> New Project
+        <h1 className="text-2xl font-normal text-black dark:text-white">
+          Overview
+        </h1>
+        <button className="text-white border border-dashed border-gray-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-900 transition-colors cursor-pointer text-sm flex items-center gap-2">
+          <Plus size={18} />
+          New
         </button>
       </div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project) => (
-          <a
-            key={project.name}
-            href="#"
-            className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:shadow-lg dark:hover:shadow-lg dark:hover:shadow-gray-800/20 transition-all group"
+      {/* Ungrouped Services Section */}
+      <div>
+        <h2 className="text-lg font-normal text-black dark:text-white mb-4">
+          Ungrouped Services
+        </h2>
+
+        {/* Tabs */}
+        <div className="flex items-center gap-4 mb-4">
+          <button
+            onClick={() => setActiveTab("active")}
+            className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors border cursor-pointer ${
+              activeTab === "active"
+                ? "border-purple-600 bg-purple-600 text-white"
+                : "border-dashed border-gray-600 text-gray-300 hover:text-white"
+            }`}
           >
-            {/* Header */}
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <h3 className="text-lg font-bold text-black dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                  {project.name}
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  {project.desc}
-                </p>
-              </div>
-              <span
-                className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
-                  project.status === "Active"
-                    ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
-                    : project.status === "Building"
-                    ? "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400"
-                    : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400"
-                }`}
-              >
-                {project.status}
-              </span>
-            </div>
+            Active ({services.filter(s => s.status === "Deployed").length})
+          </button>
+          <button
+            onClick={() => setActiveTab("suspended")}
+            className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors border cursor-pointer ${
+              activeTab === "suspended"
+                ? "border-purple-600 bg-purple-600 text-white"
+                : "border-dashed border-gray-600 text-gray-300 hover:text-white"
+            }`}
+          >
+            Suspended (0)
+          </button>
+          <button
+            onClick={() => setActiveTab("all")}
+            className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors border cursor-pointer ${
+              activeTab === "all"
+                ? "border-purple-600 bg-purple-600 text-white"
+                : "border-dashed border-gray-600 text-gray-300 hover:text-white"
+            }`}
+          >
+            All ({services.length})
+          </button>
+        </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-200 dark:border-gray-800">
-              <div className="flex items-center gap-2">
-                <Star size={16} className="text-yellow-500" />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {project.stars}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Users size={16} className="text-blue-500" />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {project.contributors}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock size={16} className="text-gray-500" />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {project.lastUpdate}
-                </span>
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className="mt-4 flex items-center justify-between">
-              <div className="flex items-center gap-1">
-                <GitBranch
-                  size={16}
-                  className="text-gray-500 dark:text-gray-400"
-                />
-                <span className="text-xs text-gray-600 dark:text-gray-400">
-                  main branch
-                </span>
-              </div>
-              <button className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium">
-                View Details →
-              </button>
-            </div>
-          </a>
-        ))}
+        {/* Search Bar */}
+        <div className="relative mb-6">
+          <Search
+            size={18}
+            className="absolute left-4 top-3 text-gray-400 dark:text-gray-500"
+          />
+          <input
+            type="text"
+            placeholder="Search services"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-3 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
+          />
+        </div>
       </div>
 
-      {/* CTA for creating new project */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-600 dark:to-blue-700 rounded-lg p-8 text-white text-center">
-        <h3 className="text-2xl font-bold mb-2">
-          Ready to deploy something new?
-        </h3>
-        <p className="mb-4 text-blue-100">
-          Connect your repository and we'll handle the deployments automatically
-        </p>
-        <button className="bg-white hover:bg-gray-100 text-blue-600 font-medium px-6 py-2 rounded-lg transition-colors">
-          Connect GitHub Repository
-        </button>
+      {/* Services Table */}
+      <div className="bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden">
+        {/* Table Header */}
+        <div className="grid grid-cols-6 gap-4 px-6 py-4 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50">
+          <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+            Service Name
+          </div>
+          <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+            Status
+          </div>
+          <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+            Runtime
+          </div>
+          <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+            Region
+          </div>
+          <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+            Updated
+          </div>
+          <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide text-right">
+            Actions
+          </div>
+        </div>
+
+        {/* Table Body */}
+        {filteredServices.length > 0 ? (
+          filteredServices.map((service, idx) => (
+            <div
+              key={service.name}
+              className={`grid grid-cols-6 gap-4 px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors ${
+                idx !== filteredServices.length - 1
+                  ? "border-b border-gray-200 dark:border-gray-800"
+                  : ""
+              }`}
+            >
+              {/* Service Name */}
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-md flex items-center justify-center flex-shrink-0">
+                  <span className="text-white font-bold text-sm">
+                    {service.name.charAt(0).toUpperCase()}
+                  </span>
+                </div>
+                <span className="text-sm font-medium text-black dark:text-white cursor-pointer hover:text-purple-600 dark:hover:text-purple-400">
+                  {service.name}
+                </span>
+              </div>
+
+              {/* Status */}
+              <div className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="text-green-500" />
+                <span className="text-sm text-green-600 dark:text-green-400 font-medium">
+                  {service.status}
+                </span>
+              </div>
+
+              {/* Runtime */}
+              <div className="flex items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  {service.runtime}
+                </span>
+              </div>
+
+              {/* Region */}
+              <div className="flex items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  {service.region}
+                </span>
+              </div>
+
+              {/* Updated */}
+              <div className="flex items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  {service.updated}
+                </span>
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center justify-end">
+                <button className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200">
+                  <MoreHorizontal size={18} />
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="px-6 py-8 text-center">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              No services found matching your search.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

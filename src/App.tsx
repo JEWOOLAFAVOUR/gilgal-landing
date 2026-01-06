@@ -37,9 +37,7 @@ function App() {
               path="/dashboard"
               element={
                 <ProtectedRoute>
-                  <DashboardLayout>
-                    <DashboardHome />
-                  </DashboardLayout>
+                  <Navigate to="/dashboard/projects" replace />
                 </ProtectedRoute>
               }
             />
