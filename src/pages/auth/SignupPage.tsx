@@ -113,21 +113,6 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors duration-200">
-      {/* Theme Toggle - Top Right - COMMENTED OUT */}
-      {/* <div className="fixed top-6 right-6 z-50">
-        <button
-          onClick={() => setIsDark(!isDark)}
-          className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors text-gray-600 dark:text-gray-400"
-          aria-label="Toggle theme"
-        >
-          {isDark ? (
-            <Sun size={20} className="text-gray-600 dark:text-gray-400" />
-          ) : (
-            <Moon size={20} className="text-gray-600 dark:text-gray-400" />
-          )}
-        </button>
-      </div> */
-
       {/* Logo - Top Left */}
       <div className="fixed top-6 left-6 z-50">
         <a href="/" className="flex items-center gap-2">
