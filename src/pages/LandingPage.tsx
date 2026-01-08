@@ -8,7 +8,7 @@ export default function LandingPage() {
   return (
     <>
       <Navbar />
-      <div className="pt-16">
+      <div className="pt-16 bg-white dark:bg-black min-h-screen">
         <Hero />
         <Features />
         <CTA />

@@ -53,14 +53,17 @@ export function Navbar() {
           <div className="flex items-center gap-3 sm:gap-4">
             {/* Theme Toggle */}
             <button
-              onClick={() => setIsDark(!isDark)}
+              onClick={() => {
+                console.log("Theme toggle clicked, current isDark:", isDark);
+                setIsDark(!isDark);
+              }}
               className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors text-gray-600 dark:text-gray-400"
               aria-label="Toggle theme"
             >
               {isDark ? (
-                <Sun size={20} className="text-gray-600 dark:text-gray-400" />
+                <Sun size={20} className="text-yellow-500" />
               ) : (
-                <Moon size={20} className="text-gray-600 dark:text-gray-400" />
+                <Moon size={20} className="text-gray-600" />
               )}
             </button>
 

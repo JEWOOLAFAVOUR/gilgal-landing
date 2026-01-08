@@ -14,22 +14,38 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [isDark, setIsDarkState] = useState<boolean>(() => {
-    // Initialize from localStorage or system preference
-    const saved = localStorage.getItem("gilgal-theme");
-    if (saved === "dark") return true;
-    if (saved === "light") return false;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
+  const [isDark, setIsDarkState] = useState<boolean>(false);
 
-  // Update DOM whenever isDark changes
+  // Sync with DOM when component mounts
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
+    const saved = localStorage.getItem("gilgal-theme");
+    const shouldBeDark = saved === "dark";
+    setIsDarkState(shouldBeDark);
+
+    // Apply to DOM
+    const html = document.documentElement;
+    if (shouldBeDark) {
+      html.classList.add("dark");
+      html.style.colorScheme = "dark";
     } else {
-      document.documentElement.classList.remove("dark");
+      html.classList.remove("dark");
+      html.style.colorScheme = "light";
     }
-    localStorage.setItem("gilgal-theme", isDark ? "dark" : "light");
+  }, []);
+
+  // Update DOM when theme changes
+  useEffect(() => {
+    const html = document.documentElement;
+
+    if (isDark) {
+      html.classList.add("dark");
+      html.style.colorScheme = "dark";
+      localStorage.setItem("gilgal-theme", "dark");
+    } else {
+      html.classList.remove("dark");
+      html.style.colorScheme = "light";
+      localStorage.setItem("gilgal-theme", "light");
+    }
   }, [isDark]);
 
   const setIsDark = (dark: boolean) => {
