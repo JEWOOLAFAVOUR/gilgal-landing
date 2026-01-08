@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="border-t border-gray-300 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors">
       <div className="max-w-6xl mx-auto">
         {/* Footer Content */}
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
@@ -39,40 +39,34 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="#pricing"
-                  className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition text-sm"
-                >
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#docs"
+                  href="https://docs.gilgal.tech"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition text-sm"
                 >
                   Documentation
                 </a>
               </li>
+              <li>
+                <a
+                  href="#faq"
+                  className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition text-sm"
+                >
+                  FAQ
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Company */}
+          {/* Resources */}
           <div>
             <h4 className="text-black dark:text-white font-semibold mb-4 transition-colors">
-              Company
+              Resources
             </h4>
             <ul className="space-y-2">
               <li>
                 <a
-                  href="https://github.com"
-                  className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition text-sm"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com"
+                  href="#blog"
                   className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition text-sm"
                 >
                   Blog
@@ -80,43 +74,12 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com"
+                  href="https://github.com/yourusername/gilgal"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition text-sm"
                 >
-                  Careers
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h4 className="text-black dark:text-white font-semibold mb-4 transition-colors">
-              Legal
-            </h4>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="https://github.com"
-                  className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition text-sm"
-                >
-                  Privacy
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com"
-                  className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition text-sm"
-                >
-                  Terms
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com"
-                  className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition text-sm"
-                >
-                  License
+                  GitHub
                 </a>
               </li>
             </ul>
@@ -133,25 +96,13 @@ export function Footer() {
             {/* Social Links */}
             <div className="flex gap-4">
               <a
-                href="https://github.com"
+                href="https://github.com/JEWOOLAFAVOUR/gilgal"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition duration-200"
                 aria-label="GitHub"
               >
                 <Github size={20} />
-              </a>
-              <a
-                href="https://twitter.com"
-                className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition duration-200"
-                aria-label="Twitter"
-              >
-                <Twitter size={20} />
-              </a>
-              <a
-                href="https://linkedin.com"
-                className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition duration-200"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={20} />
               </a>
             </div>
           </div>

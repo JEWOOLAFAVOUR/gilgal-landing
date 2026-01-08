@@ -28,7 +28,7 @@ export function Hero() {
           complexity.
           <span className="font-semibold text-black dark:text-white">
             {" "}
-            Gilgal handles everything—scaling, SSL, monitoring—so you can focus
+            Gilgal handles everything, scaling, SSL, monitoring so you can focus
             on building.
           </span>
         </p>

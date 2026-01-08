@@ -113,8 +113,8 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors duration-200">
-      {/* Theme Toggle - Top Right */}
-      <div className="fixed top-6 right-6 z-50">
+      {/* Theme Toggle - Top Right - COMMENTED OUT */}
+      {/* <div className="fixed top-6 right-6 z-50">
         <button
           onClick={() => setIsDark(!isDark)}
           className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors text-gray-600 dark:text-gray-400"
@@ -126,7 +126,7 @@ export default function SignupPage() {
             <Moon size={20} className="text-gray-600 dark:text-gray-400" />
           )}
         </button>
-      </div>
+      </div> */
 
       {/* Logo - Top Left */}
       <div className="fixed top-6 left-6 z-50">
@@ -272,14 +272,18 @@ export default function SignupPage() {
               >
                 I agree to the{" "}
                 <a
-                  href="#"
+                  href="/terms-of-service"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-black dark:text-white hover:opacity-70 transition-opacity"
                 >
                   Terms of Service
                 </a>{" "}
                 and{" "}
                 <a
-                  href="#"
+                  href="/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-black dark:text-white hover:opacity-70 transition-opacity"
                 >
                   Privacy Policy

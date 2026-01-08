@@ -8,7 +8,7 @@ export function Navbar() {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-black dark:bg-black border-b border-gray-900 dark:border-gray-800 transition-colors duration-200">
-      <div className="w-full px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 lg:px-16">
         {/* Main Nav */}
         <div className="flex items-center justify-between h-16">
           {/* Left side - Logo */}
@@ -22,16 +22,16 @@ export function Navbar() {
           </a>
 
           {/* Center - Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-2">
             <a
               href="#features"
-              className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+              className="px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors text-sm font-medium"
             >
               Features
             </a>
             <a
               href="#blog"
-              className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+              className="px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors text-sm font-medium"
             >
               Blog
             </a>
@@ -39,13 +39,13 @@ export function Navbar() {
               href="https://docs.gilgal.tech"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+              className="px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors text-sm font-medium"
             >
               Docs
             </a>
             <a
               href="#faq"
-              className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+              className="px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors text-sm font-medium"
             >
               FAQ
             </a>
@@ -55,7 +55,7 @@ export function Navbar() {
           <div className="flex items-center gap-4">
             {/* GitHub Link */}
             <a
-              href="https://github.com/yourusername/gilgal"
+              href="https://github.com/JEWOOLAFAVOUR/gilgal"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 text-gray-300 hover:text-white transition-colors"

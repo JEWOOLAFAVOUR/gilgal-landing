@@ -9,6 +9,8 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignupPage from "./pages/auth/SignupPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import ProjectsPage from "./pages/dashboard/ProjectsPage";
 import ProjectDetailsPage from "./pages/dashboard/ProjectDetailsPage";
@@ -30,6 +32,10 @@ function App() {
             {/* Auth Routes */}
             <Route path="/auth/login" element={<LoginPage />} />
             <Route path="/auth/signup" element={<SignupPage />} />
+
+            {/* Legal Routes */}
+            <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
 
             {/* Legacy routes for backward compatibility */}
             <Route path="/login" element={<LoginPage />} />
